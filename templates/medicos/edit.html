@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Médico{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-warning">
+        <h4 class="mb-0"><i class="bi bi-pencil"></i> Editar Médico</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('medico.edit', id=medico.id_medico) }}">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nombre" class="form-label">Nombre Completo *</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" 
+                           value="{{ medico.nombre }}" required>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="especialidad" class="form-label">Especialidad *</label>
+                    <input type="text" class="form-control" id="especialidad" name="especialidad" 
+                           value="{{ medico.especialidad }}" required>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="telefono" class="form-label">Teléfono *</label>
+                    <input type="tel" class="form-control" id="telefono" name="telefono" 
+                           value="{{ medico.telefono }}" required>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="correo" class="form-label">Correo Electrónico *</label>
+                    <input type="email" class="form-control" id="correo" name="correo" 
+                           value="{{ medico.correo }}" required>
+                </div>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                <a href="{{ url_for('medico.index') }}" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Cancelar
+                </a>
+                <button type="submit" class="btn btn-warning">
+                    <i class="bi bi-save"></i> Actualizar Médico
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

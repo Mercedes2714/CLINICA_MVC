@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle de Consulta{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-info text-white">
+        <h4 class="mb-0"><i class="bi bi-eye"></i> Detalle de Consulta</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="text-primary"><i class="bi bi-calendar-event"></i> Información General</h5>
+                <dl class="row">
+                    <dt class="col-sm-4">ID Consulta:</dt>
+                    <dd class="col-sm-8">{{ consulta.id_consulta }}</dd>
+                    
+                    <dt class="col-sm-4">Fecha:</dt>
+                    <dd class="col-sm-8">{{ consulta.fecha.strftime('%d/%m/%Y - %H:%M') }}</dd>
+                </dl>
+            </div>
+            
+            <div class="col-md-6">
+                <h5 class="text-success"><i class="bi bi-person-badge"></i> Personal Médico</h5>
+                <dl class="row">
+                    <dt class="col-sm-4">Médico:</dt>
+                    <dd class="col-sm-8">Dr. {{ consulta.medico.nombre }}</dd>
+                    
+                    <dt class="col-sm-4">Especialidad:</dt>
+                    <dd class="col-sm-8">
+                        <span class="badge bg-primary">{{ consulta.medico.especialidad }}</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <h5 class="text-primary"><i class="bi bi-person"></i> Paciente</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Nombre:</dt>
+            <dd class="col-sm-9">{{ consulta.paciente.nombre }}</dd>
+            
+            <dt class="col-sm-3">Edad:</dt>
+            <dd class="col-sm-9">{{ consulta.paciente.edad }} años</dd>
+            
+            <dt class="col-sm-3">Teléfono:</dt>
+            <dd class="col-sm-9">{{ consulta.paciente.telefono }}</dd>
+        </dl>
+        
+        <hr>
+        
+        <h5 class="text-danger"><i class="bi bi-clipboard-pulse"></i> Información Médica</h5>
+        <div class="mb-3">
+            <strong>Diagnóstico:</strong>
+            <div class="alert alert-warning mt-2">
+                {{ consulta.diagnostico }}
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <strong>Tratamiento:</strong>
+            <div class="alert alert-success mt-2">
+                {{ consulta.tratamiento }}
+            </div>
+        </div>
+        
+        <hr>
+        
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{{ url_for('consulta.edit', id=consulta.id_consulta) }}" class="btn btn-warning">
+                <i class="bi bi-pencil"></i> Editar
+            </a>
+            <a href="{{ url_for('consulta.index') }}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

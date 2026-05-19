@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - Clínica Médica{% endblock %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold"><i class="bi bi-hospital"></i> Sistema de Gestión de Clínica Médica</h1>
+        <p class="col-md-8 fs-5">Bienvenido al sistema de administración de consultas médicas. 
+        Gestione médicos, pacientes y consultas de manera eficiente.</p>
+        <hr class="my-4">
+        <p>Utilizando Flask + SQLAlchemy + Patrón MVC</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <a href="{{ url_for('medico.index') }}" class="btn btn-primary btn-lg">
+                <i class="bi bi-person-badge"></i> Ver Médicos
+            </a>
+            <a href="{{ url_for('paciente.index') }}" class="btn btn-success btn-lg">
+                <i class="bi bi-people"></i> Ver Pacientes
+            </a>
+            <a href="{{ url_for('consulta.index') }}" class="btn btn-info btn-lg text-white">
+                <i class="bi bi-calendar-check"></i> Ver Consultas
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row align-items-md-stretch">
+    <div class="col-md-4">
+        <div class="h-100 p-5 text-white bg-primary rounded-3">
+            <h2><i class="bi bi-person-badge"></i> Médicos</h2>
+            <p>Administre el personal médico de la clínica, especialidades y contacto.</p>
+            <a href="{{ url_for('medico.create') }}" class="btn btn-outline-light">
+                <i class="bi bi-plus-circle"></i> Nuevo Médico
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="h-100 p-5 text-white bg-success rounded-3">
+            <h2><i class="bi bi-people"></i> Pacientes</h2>
+            <p>Registre pacientes y visualice su historial médico completo.</p>
+            <a href="{{ url_for('paciente.create') }}" class="btn btn-outline-light">
+                <i class="bi bi-plus-circle"></i> Nuevo Paciente
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="h-100 p-5 text-white bg-info rounded-3">
+            <h2><i class="bi bi-calendar-check"></i> Consultas</h2>
+            <p>Registre consultas médicas con diagnóstico y tratamiento.</p>
+            <a href="{{ url_for('consulta.create') }}" class="btn btn-outline-light">
+                <i class="bi bi-plus-circle"></i> Nueva Consulta
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

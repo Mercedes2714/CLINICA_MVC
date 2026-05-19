@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle del Médico{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-info text-white">
+        <h4 class="mb-0"><i class="bi bi-eye"></i> Detalle del Médico</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <dl class="row">
+                    <dt class="col-sm-4">ID:</dt>
+                    <dd class="col-sm-8">{{ medico.id_medico }}</dd>
+                    
+                    <dt class="col-sm-4">Nombre:</dt>
+                    <dd class="col-sm-8">{{ medico.nombre }}</dd>
+                    
+                    <dt class="col-sm-4">Especialidad:</dt>
+                    <dd class="col-sm-8">
+                        <span class="badge bg-primary">{{ medico.especialidad }}</span>
+                    </dd>
+                    
+                    <dt class="col-sm-4">Teléfono:</dt>
+                    <dd class="col-sm-8">{{ medico.telefono }}</dd>
+                    
+                    <dt class="col-sm-4">Correo:</dt>
+                    <dd class="col-sm-8">{{ medico.correo }}</dd>
+                    
+                    <dt class="col-sm-4">Registro:</dt>
+                    <dd class="col-sm-8">{{ medico.fecha_registro.strftime('%d/%m/%Y') }}</dd>
+                </dl>
+            </div>
+            
+            <div class="col-md-6">
+                <h5 class="text-primary">
+                    <i class="bi bi-calendar-check"></i> Consultas Realizadas
+                </h5>
+                <div class="alert alert-info">
+                    <h3 class="text-center mb-0">
+                        {{ medico.consultas|length }}
+                    </h3>
+                    <p class="text-center mb-0">consultas atendidas</p>
+                </div>
+                
+                {% if medico.consultas %}
+                <div class="list-group">
+                    {% for consulta in medico.consultas[:5] %}
+                    <a href="{{ url_for('consulta.show', id=consulta.id_consulta) }}" 
+                       class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{ consulta.paciente.nombre }}</h6>
+                            <small>{{ consulta.fecha.strftime('%d/%m/%Y') }}</small>
+                        </div>
+                        <p class="mb-1">{{ consulta.diagnostico[:50] }}...</p>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <hr>
+        
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{{ url_for('medico.edit', id=medico.id_medico) }}" class="btn btn-warning">
+                <i class="bi bi-pencil"></i> Editar
+            </a>
+            <a href="{{ url_for('medico.index') }}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

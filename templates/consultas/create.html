@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Nueva Consulta{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-info text-white">
+        <h4 class="mb-0"><i class="bi bi-calendar-plus"></i> Registrar Consulta Médica</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('consulta.create') }}">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_paciente" class="form-label">Paciente *</label>
+                    <select name="id_paciente" id="id_paciente" class="form-select" required>
+                        <option value="">Seleccione un paciente...</option>
+                        {% for paciente in pacientes %}
+                        <option value="{{ paciente.id_paciente }}">{{ paciente.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="id_medico" class="form-label">Médico *</label>
+                    <select name="id_medico" id="id_medico" class="form-select" required>
+                        <option value="">Seleccione un médico...</option>
+                        {% for medico in medicos %}
+                        <option value="{{ medico.id_medico }}">
+                            Dr. {{ medico.nombre }} - {{ medico.especialidad }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha y Hora *</label>
+                <input type="datetime-local" class="form-control" id="fecha" name="fecha" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="diagnostico" class="form-label">Diagnóstico *</label>
+                <textarea class="form-control" id="diagnostico" name="diagnostico" 
+                          rows="3" required></textarea>
+            </div>
+            
+            <div class="mb-3">
+                <label for="tratamiento" class="form-label">Tratamiento *</label>
+                <textarea class="form-control" id="tratamiento" name="tratamiento" 
+                          rows="3" required></textarea>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{{ url_for('consulta.index') }}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-info">
+                    <i class="bi bi-save"></i> Registrar Consulta
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

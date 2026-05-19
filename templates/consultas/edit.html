@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Consulta{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-warning">
+        <h4 class="mb-0"><i class="bi bi-pencil"></i> Editar Consulta</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('consulta.edit', id=consulta.id_consulta) }}">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_paciente" class="form-label">Paciente *</label>
+                    <select name="id_paciente" id="id_paciente" class="form-select" required>
+                        {% for paciente in pacientes %}
+                        <option value="{{ paciente.id_paciente }}" 
+                                {% if paciente.id_paciente == consulta.id_paciente %}selected{% endif %}>
+                            {{ paciente.nombre }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="id_medico" class="form-label">Médico *</label>
+                    <select name="id_medico" id="id_medico" class="form-select" required>
+                        {% for medico in medicos %}
+                        <option value="{{ medico.id_medico }}" 
+                                {% if medico.id_medico == consulta.id_medico %}selected{% endif %}>
+                            Dr. {{ medico.nombre }} - {{ medico.especialidad }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha y Hora *</label>
+                <input type="datetime-local" class="form-control" id="fecha" name="fecha" 
+                       value="{{ consulta.fecha.strftime('%Y-%m-%dT%H:%M') }}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="diagnostico" class="form-label">Diagnóstico *</label>
+                <textarea class="form-control" id="diagnostico" name="diagnostico" 
+                          rows="3" required>{{ consulta.diagnostico }}</textarea>
+            </div>
+            
+            <div class="mb-3">
+                <label for="tratamiento" class="form-label">Tratamiento *</label>
+                <textarea class="form-control" id="tratamiento" name="tratamiento" 
+                          rows="3" required>{{ consulta.tratamiento }}</textarea>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{{ url_for('consulta.index') }}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-warning">
+                    <i class="bi bi-save"></i> Actualizar Consulta
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
